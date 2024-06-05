@@ -1,0 +1,204 @@
+[general]
+name Dodo
+
+version 1.1 21-3-2014
+
+start s8.1
+
+[sequence1]
+#near
+s1.1 1 240
+
+[sequence2]
+#near
+s2.1 241 480
+
+[sequence3]
+#near
+s3.1 481 720
+
+[sequence4]
+#near
+s4.1 721 800
+
+[sequence5]
+#middle
+s5.1 801 960
+
+[sequence6]
+#middle
+s6.1 961 1080
+
+[sequence7]
+#middle
+s7.1 1081 1200
+
+[sequence8]
+#far / idle
+s8.1 1201 1310
+
+[sequence9]
+#far / idle
+s9.1 1311 1430
+
+[sequence10]
+#far / idle
+s10.1 1431 1670
+
+
+[idle]
+s8
+s9
+s10
+
+[active1]
+#far
+s5
+s6
+s7
+
+[active2]
+#near
+s1
+s2
+s3
+s4
+
+[active3]
+s1
+
+[active4]
+s1
+
+[active5]
+s1
+
+[active6]
+s1
+
+[active7]
+s1
+
+[active8]
+s1
+
+[active9]
+s1
+
+
+[jump]
+s1.1 s1.1
+s1.1 s2.1
+s1.1 s3.1
+s1.1 s4.1
+s1.1 s5.1
+s1.1 s6.1
+s1.1 s7.1
+s1.1 s8.1
+s1.1 s9.1
+s1.1 s10.1
+s1.1 s2.1
+s1.1 s2.1
+
+s2.1 s1.1
+s2.1 s2.1
+s2.1 s3.1
+s2.1 s4.1
+s2.1 s5.1
+s2.1 s6.1
+s2.1 s7.1
+s2.1 s8.1
+s2.1 s9.1
+s2.1 s10.1
+
+s3.1 s1.1
+s3.1 s2.1
+s3.1 s3.1
+s3.1 s4.1
+s3.1 s5.1
+s3.1 s6.1
+s3.1 s7.1
+s3.1 s8.1
+s3.1 s9.1
+s3.1 s10.1
+
+s4.1 s1.1
+s4.1 s2.1
+s4.1 s3.1
+s4.1 s4.1
+s4.1 s5.1
+s4.1 s6.1
+s4.1 s7.1
+s4.1 s8.1
+s4.1 s9.1
+s4.1 s10.1
+
+s5.1 s1.1
+s5.1 s2.1
+s5.1 s3.1
+s5.1 s4.1
+s5.1 s5.1
+s5.1 s6.1
+s5.1 s7.1
+s5.1 s8.1
+s5.1 s9.1
+s5.1 s10.1
+
+s6.1 s1.1
+s6.1 s2.1
+s6.1 s3.1
+s6.1 s4.1
+s6.1 s5.1
+s6.1 s6.1
+s6.1 s7.1
+s6.1 s8.1
+s6.1 s9.1
+s6.1 s10.1
+
+s7.1 s1.1
+s7.1 s2.1
+s7.1 s3.1
+s7.1 s4.1
+s7.1 s5.1
+s7.1 s6.1
+s7.1 s7.1
+s7.1 s8.1
+s7.1 s9.1
+s7.1 s10.1
+
+s8.1 s1.1
+s8.1 s2.1
+s8.1 s3.1
+s8.1 s4.1
+s8.1 s5.1
+s8.1 s6.1
+s8.1 s7.1
+s8.1 s8.1
+s8.1 s9.1
+s8.1 s10.1
+
+s9.1 s1.1
+s9.1 s2.1
+s9.1 s3.1
+s9.1 s4.1
+s9.1 s5.1
+s9.1 s6.1
+s9.1 s7.1
+s9.1 s8.1
+s9.1 s9.1
+s9.1 s10.1
+
+s10.1 s1.1
+s10.1 s2.1
+s10.1 s3.1
+s10.1 s4.1
+s10.1 s5.1
+s10.1 s6.1
+s10.1 s7.1
+s10.1 s8.1
+s10.1 s9.1
+s10.1 s10.1
+
+
+
+
