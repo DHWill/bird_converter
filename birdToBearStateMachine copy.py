@@ -179,14 +179,41 @@ def parseBirdLogic(file, _dataToAppend):
 
         jumps = []
         for _sequence in sequencesParsed:
-            name, start, end = _sequence[0].split(' ')
             jumps.append(_sequence[1])
         
-        states = combineSameValuesInListIsListContainsSameValues(jumps)
-        # pop = removeCombinedDuplicatesInListOfLists(pop)
+        stateList = combineSameValuesInListIsListContainsSameValues(jumps)
 
+        animations = []
+        for _sequence in sequencesParsed:
+            clipName, startTime, endTime = _sequence[0].split(' ')
+            jumps = _sequence[1]
+            isActive = _sequence[2]
+            position = -1
+            targetPosition = -1
+
+            for i in range(len(stateList)):
+                if(clipName in stateList[i]):
+                    position = i
+                
+                for n in jumps:
+                    if(n in stateList[i]):
+                        targetPosition = i
+
+
+            animation = ({'name':clipName, 
+                        'startTime':startTime, 
+                        'endTime':endTime,
+                        'transitionFromParent': None,
+                        'parentAnimation' : None,
+                        'parentState':stateList[position][0],
+                        'position':position,
+                        'targetPosition':targetPosition,
+                        'isEarlyExit':False,
+                        'isActive':isActive})
+            
+            animations.append(animation)
         
-        for n in states:
+        for n in animations:
             print(n)
         
 
