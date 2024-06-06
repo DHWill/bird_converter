@@ -1,6 +1,8 @@
 import csv
 import json
 import re
+from itertools import combinations
+from collections import defaultdict
 
 def calcPosition(_parentState):
     positions = {"Left":0, "Front":1, "Right":2}
@@ -21,15 +23,64 @@ def getsequenceName(_seq):
 
 def remove_duplicates(list_of_lists):
     seen = set()
-    result = []
+    unique_lists = []
+    indexList = []
+    index = 0
     for sublist in list_of_lists:
-        unique_sublist = []
-        for item in sublist:
-            if item not in seen:
-                unique_sublist.append(item)
-                seen.add(item)
-        result.append(unique_sublist)
-    return result
+        sorted_tuple = tuple(sorted(sublist))
+        if(sorted_tuple not in seen):
+            seen.add(sorted_tuple)
+            unique_lists.append(sublist)
+            indexList.append(index)
+        index +=1
+    return unique_lists, indexList
+
+def find_unique_values(pair):
+    set1, set2 = set(pair[0]), set(pair[1])
+    common = set1 & set2
+    unique1 = set1 - common
+    unique2 = set2 - common
+    return list(unique1), list(unique2)
+
+def combineSameValuesInListIsListContainsSameValues(inLists):
+    result = []
+    resultOutOut = []
+    for k in inLists:
+        resultComp = k
+        for m in inLists:
+            isIn = False
+            for t in m:
+                if(t in k):
+                    isIn = True
+                    break
+            if(isIn):
+                in_first = set(k)
+                in_second = set(m)
+                in_second_but_not_in_first = in_second - in_first
+                result = k + list(in_second_but_not_in_first)
+                if(len(result) > len(resultComp)):
+                    resultComp = result
+
+        uniques = list(set(resultComp))
+        sortedResult = tuple(sorted(uniques))
+        if(sortedResult not in resultOutOut):
+            resultOutOut.append(sortedResult)
+    return resultOutOut
+
+def removeCombinedDuplicatesInListOfLists(inLists):
+    result = []
+    resultOut = []
+    for n in inLists:
+        result = []
+        for p in inLists:
+            hit = False
+            for j in p:
+                if(j in n):
+                    hit = True
+            if(hit):
+                resultOut.append(result)
+    return resultOut
+
 
 def parseBirdLogic(file, _dataToAppend):
     with open(file, 'r') as _data:
@@ -116,9 +167,6 @@ def parseBirdLogic(file, _dataToAppend):
                     if(nameComp == name):
                         jumpsInSequence.append(jumpName)
 
-                # jumpsInSequence.append(name)
-                # sequence.append(list(set(jumpsInSequence)))
-                # jumpsInSequence.append(name)
                 sequence.append(jumpsInSequence)
 
                 isActive = False
@@ -127,24 +175,113 @@ def parseBirdLogic(file, _dataToAppend):
                         isActive = True
                 sequence.append(isActive)
             sequencesParsed.append(sequence)
-            # print(sequence)
+        
 
-        jumpsToComp = []
-        _sequencesParsed = sequencesParsed.copy()
-        position = 0
+        jumps = []
         for _sequence in sequencesParsed:
-            jumpsChecked = set()
-            name, startTime, endTime = sequence[0].split(' ')
-            jumpsInSequence = _sequence[1]
-            print(_sequence)
-            for _sequenceComp in sequencesParsed:
-                if(_sequenceComp != sequence):
-                    _name, _startTime, _endTime = _sequenceComp[0].split(' ')
-                    if(name in jumpsInSequence and name not in jumpsChecked):
-                        for j in jumpsInSequence:
-                            jumpsChecked.add(j)
-                        position += 1
-                        print(name, position)
+            name, start, end = _sequence[0].split(' ')
+            jumps.append(_sequence[1])
+        
+        states = combineSameValuesInListIsListContainsSameValues(jumps)
+        # pop = removeCombinedDuplicatesInListOfLists(pop)
+
+        
+        for n in states:
+            print(n)
+        
+
+parsedBirdFile = []
+parseBirdLogic("280223_Atlas_0_0_5.txt", parsedBirdFile)
+        # pop = remove_duplicates
+            
+
+
+
+
+
+
+
+
+
+        # jumpsNotIncludingSelfList, _ = remove_duplicates(jumpsNotIncludingSelfList)
+        # jumpsIncludingSelfListCopy = jumpsIncludingSelfList.copy() #remove self from ordered list to extract transition
+        # jumpsIncludingSelfList, _indexes = remove_duplicates(jumpsIncludingSelfList)    
+        
+
+        # for n in range(len(jumpsIncludingSelfListCopy)):
+        #     if(n in _indexes):
+        #         jumpsIncludingSelfListCopy[n] = []
+
+
+        # stateList = []
+        # for i in jumpsIncludingSelfListCopy:
+        #     for j in jumpsNotIncludingSelfList:
+        #         listComp = i[:-1] #remove self from list
+        #         if(listComp == j):
+        #             selfT = i[-1]
+        #             # j.append(selfT)
+        #             stateList.append(j) #this should find common jumps i.e position
+        
+        # stateList, _ = remove_duplicates(stateList)
+
+        # stateListNarrowed = []
+        # transitionListNarrowed = []
+        # for s in stateList:
+        #     print(s)
+        
+        
+        #     _stateList = []
+        #     _transitionList = []
+        #     for findTransitions in stateList:
+        #         if(findTransitions != s):
+        #             # _transitionList = []
+        #             isMatchingSet = False
+        #             for transition in findTransitions:
+        #                 if(transition in s):
+        #                     isMatchingSet = True
+
+        #             isFullState = True
+        #             if(isMatchingSet):
+        #                 _transitionList = []
+        #                 for transition in findTransitions:
+        #                     if(transition not in s):
+        #                         isFullState = False
+        #                         _transitionList.append(transition)
+        #                 if(isFullState):
+        #                     stateListNarrowed.append(s)
+
+                
+        #     if(len(_transitionList) > 0):
+        #         transitionListNarrowed.append(_transitionList)
+    
+
+        # for s in stateListNarrowed:
+        #     print(s)
+        # print("^^StateList")
+
+        # for i in transitionListNarrowed:
+        #     print(i)
+        # print("^^Transitisons")
+        
+            
+
+
+        # for _sequence in sequencesParsed:
+        #     name, start, end = _sequence[0].split(' ')
+        # # Convert each list to a set
+        # sets = [set(lst) for lst in all_lists]
+
+        # # Find all unique elements
+        # all_unique_elements = set.union(*sets)
+
+        # # Find the common elements across all sets
+        # common_elements = set.intersection(*sets)
+
+        # # Find unique elements in each set
+        # unique_elements_in_each_list = [list(s - common_elements) for s in sets]
+
+        # # Print the unique elements in each list
+        # for i, unique_elements in enumerate(unique_elements_in_each_list):
 
 
             
@@ -203,6 +340,40 @@ def parseBirdLogic(file, _dataToAppend):
 
     # sorted_list_of_lists = sorted(common_jumps_comp_list, key=len)
     # for i in sorted_list_of_lists:
+
+
+        # pairs_with_common_elements = []
+
+        # for (list1, list2) in combinations(stateList, 2):
+        #     common_elements = set(list1) & set(list2)
+        #     if common_elements:
+        #         pairs_with_common_elements.append((list1, list2, common_elements))
+
+        # # Process each pair to find unique values
+        # result = []
+
+        # for list1, list2, common_elements in pairs_with_common_elements:
+        #     if len(list1) >= len(list2):
+        #         longest_list, other_list = list1, list2
+        #     else:
+        #         longest_list, other_list = list2, list1
+
+        #     unique_in_longest = set(longest_list) - common_elements
+        #     unique_in_other = set(other_list) - common_elements
+
+        #     result.append((longest_list, unique_in_longest, unique_in_other))
+
+        # # Output the result
+        # for longest, unique_longest, unique_other in result:
+        #     print(f"Longest list: {longest}")
+        #     print(f"Unique values in longest list: {unique_longest}")
+        #     print(f"Unique values in other list: {unique_other}")
+        #     print()
+
+
+
+        # for p in stateList:
+        #     print(p)
     #     print(i)
     
 
@@ -211,7 +382,5 @@ def parseBirdLogic(file, _dataToAppend):
 
 
 # Replace 'inputcsv' and 'output.json' with the actual file names
-parsedBirdFile = []
-parseBirdLogic("280223_Atlas_0_0_5.txt", parsedBirdFile)
 
 # csv_to_json('SM.csv', 'Video_SM.csv', 'video_states.json')
